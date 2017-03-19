@@ -1,0 +1,5 @@
+# pgmasq extension
+comment = 'extension for forwarding queries to another postgres server'
+default_version = '1.0'
+module_pathname = '$libdir/pgmasq'
+relocatable = true
