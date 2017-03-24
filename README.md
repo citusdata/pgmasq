@@ -1,6 +1,6 @@
 # pgmasq
 
-Pgmasq transparently forward transactions from a hot standby to a primary to enable DDL and DML from any node.
+Pgmasq is an extension that transparently forwards transactions from a hot standby to a primary to enable DDL and DML from any node.
 
 # Installation
 
