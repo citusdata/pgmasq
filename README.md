@@ -1,6 +1,8 @@
 # pgmasq
 
-Pgmasq is an extension that transparently forwards transactions from a hot standby to a primary to enable DDL and DML from any node.
+Pgmasq is a PostgreSQL extension that transparently forwards transactions from a hot standby to a primary to enable DDL and DML from any node, while providing a means of offloading some SELECTs to a standby. 
+
+Pqmasq is currently a prototype, with some important [limitations](#limitations).
 
 # Installation
 
@@ -51,5 +53,5 @@ host all replicator 10.0.0.0/8 md5
 
 `CREATE TEMPORARY TABLE` is not supported as the parser on the hot standby cannot see the temporary table.
 
-Multi-statement transactions of the form `BEGIN; [DDL on table X]; [SELECT/DML on table X]; COMMIT;` will create a *deadlock*, since the DDL will take an exclusive lock, which will prevent the parser from proceeding with the SELECT/DML.
+Multi-statement transactions of the form `BEGIN; [DDL on table X]; [SELECT/DML on table X]; COMMIT;` may create an *undetectable deadlock*, since the DDL will take an exclusive lock when it gets replicated, which will cause the parser to block when processing the SELECT/DML.
 
